@@ -32,6 +32,7 @@ int main() {
   printVec(mvec);
   __m256 nvec = _mm256_load_ps(n);
   printVec(nvec);
+  __m256 zerovec = _mm256_set1_ps(0);
   for(int i=0; i<N; i++) {
     __m256 ivec = _mm256_set1_ps(i);
     printVec(ivec);
@@ -63,9 +64,9 @@ int main() {
     printVec(fxtmpvec);
     __m256 fytmpvec = _mm256_mul_ps(ryvec, tmp2vec);
     printVec(fytmpvec);
-    __m256 fx1tmpvec = _mm256_mul_ps(fxtmpvec, mask);
+    __m256 fx1tmpvec = _mm256_blendv_ps(zerovec, fxtmpvec, mask);
     printVec(fx1tmpvec);
-    __m256 fy1tmpvec = _mm256_mul_ps(fytmpvec, mask);
+    __m256 fy1tmpvec = _mm256_blendv_ps(zerovec, fytmpvec, mask);
     printVec(fy1tmpvec);
     fxvec = _mm256_sub_ps(fxvec, fx1tmpvec);
     fyvec = _mm256_sub_ps(fyvec, fy1tmpvec);
