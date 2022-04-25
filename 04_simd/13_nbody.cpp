@@ -64,9 +64,9 @@ int main() {
     __m256 fytmpvec = _mm256_mul_ps(ryvec, tmp2vec);
     printVec(fytmpvec);
     __m256 fx1tmpvec = _mm256_mul_ps(fxtmpvec, mask);
-    printVec(fx1vec);
+    printVec(fx1tmpvec);
     __m256 fy1tmpvec = _mm256_mul_ps(fytmpvec, mask);
-    printVec(fy1vec);
+    printVec(fy1tmpvec);
     fxvec = _mm256_sub_ps(fxvec, fx1tmpvec);
     fyvec = _mm256_sub_ps(fyvec, fy1tmpvec);
     _mm256_store_ps(fx, fxvec);
