@@ -35,7 +35,7 @@ int main() {
   for(int i=0; i<N; i++) {
     __m256 ivec = _mm256_set1_ps(i);
     printVec(ivec);
-    __m256 mask = _mm256_cmp_ps(nvec, ivec, _CMP_EQ_OQ);
+    __m256 mask = _mm256_cmp_ps(nvec, ivec, _CMP_NEQ_UQ);
     printVec(mask);
     __m256 ixvec = _mm256_set1_ps(x[i]);
     printVec(ixvec);
