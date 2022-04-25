@@ -30,8 +30,8 @@ int main() {
     __m256 ryvec = _mm256_sub_ps(iyvec, yvec);
     __m256 rxtmpvec = _mm256_mul_ps(rxvec,rxvec);
     __m256 rytmpvec = _mm256_mul_ps(ryvec,ryvec);
-    rtmpvec = _mm256_add_ps(rxtmpvec, rytmpvec);
-    rvec = _mm256_rsqrt_ps(rtmpvec);
+    __m256 rtmpvec = _mm256_add_ps(rxtmpvec, rytmpvec);
+    __m256 rvec = _mm256_rsqrt_ps(rtmpvec);
     __m256 tmpvec = _mm256_mul_ps(rvec, rvec);
     tmpvec = _mm256_mul_ps(tmpvec, rvec);
     tmpvec = _mm256_mul_ps(mvec, tmpvec);
