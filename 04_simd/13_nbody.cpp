@@ -3,6 +3,13 @@
 #include <cmath>
 #include <immintrin.h>
 
+void printVec(__m256 xvec){
+  float x[8];
+  _mm256_store_ps(x, xvec);
+  for(int i=0;i<8;i++){printf("%g ",x[i]);};
+  printf("\n");
+}
+
 int main() {
   const int N = 8;
   float x[N], y[N], m[N], n[N], fx[N], fy[N];
