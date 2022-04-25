@@ -21,6 +21,7 @@ int main() {
     fx[i] = fy[i] = 0;
   }
   __m256 fxvec = _mm256_load_ps(fx);
+  printVec(fxvec);
   __m256 fyvec = _mm256_load_ps(fy);
   __m256 xvec = _mm256_load_ps(x);
   __m256 yvec = _mm256_load_ps(y);
