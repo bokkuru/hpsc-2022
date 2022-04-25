@@ -29,7 +29,7 @@ int main() {
   __m256 zerovec = _mm256_set1_ps(0);
   for(int i=0; i<N; i++) {
     __m256 ivec = _mm256_set1_ps(i);
-    __m256 mask = _mm256_cmp_ps(nvec, ivec, _CMP_NEQ_UQ);
+    __m256 mask = _mm256_cmp_ps(nvec, ivec, _CMP_EQ_UQ);
     __m256 ixvec = _mm256_set1_ps(x[i]);
     __m256 iyvec = _mm256_set1_ps(y[i]);
     __m256 rxvec = _mm256_sub_ps(ixvec, xvec);
