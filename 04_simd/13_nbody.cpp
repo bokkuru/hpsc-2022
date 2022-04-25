@@ -43,8 +43,8 @@ int main() {
     __m256 tmp2vec = _mm256_mul_ps(mvec, tmp1vec);
     __m256 fxtmpvec = _mm256_mul_ps(rxvec, tmp2vec);
     __m256 fytmpvec = _mm256_mul_ps(ryvec, tmp2vec);
-    __m256 fx1tmpvec = _mm256_blendv_ps(fxtmpvec, zerovec, mask);
-    __m256 fy1tmpvec = _mm256_blendv_ps(fytmpvec, zerovec, mask);
+    __m256 fx1tmpvec = _mm256_blendv_ps(zerovec, fxtmpvec, mask);
+    __m256 fy1tmpvec = _mm256_blendv_ps(zerovec, fytmpvec, mask);
     fxvec = _mm256_sub_ps(fxvec, fx1tmpvec);
     fyvec = _mm256_sub_ps(fyvec, fy1tmpvec);
     _mm256_store_ps(fx, fxvec);
