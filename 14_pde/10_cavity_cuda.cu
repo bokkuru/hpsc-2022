@@ -15,8 +15,10 @@ __device__ double pow2(double x){
 }
 
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
-    int i = blockDim.x*blockIdx.x+threadIdx.x;
-	int j = blockDim.y*blockIdx.y+threadIdx.y;
+    int num = blockDim.x*blockIdx.x+threadIdx.x;
+    
+    int i = num % ny;
+    int j = num / ny;
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
