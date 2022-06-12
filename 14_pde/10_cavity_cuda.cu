@@ -85,6 +85,7 @@ int main(){
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
+        /*
         for (int j = 1; j < ny - 1; j++){
             for (int i = 1; i < nx - 1; i++){
                 printf("%.2f ", u[j+i*ny]*1000);
@@ -98,6 +99,7 @@ int main(){
             }
             printf("\n");
         }
+        */
     }
     cudaFree(u);
     cudaFree(v);
