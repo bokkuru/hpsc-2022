@@ -84,7 +84,7 @@ int main(){
     cudaMallocManaged(&vn, ny * nx * sizeof(double));
     cudaMallocManaged(&pn, ny * nx * sizeof(double));
 
-    for (int i = 0; i < ny*nx; ++i){
+    for (int i = 0; i < ny*nx+1; ++i){
             u[i]= 0;
             v[i]= 0;
             p[i]= 0;
