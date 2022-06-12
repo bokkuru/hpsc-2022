@@ -35,8 +35,8 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
             __syncthreads();
             p[ny - 1+i*ny] = 0;
             p[i*ny] = p[1+i*ny];
-            p[i+ny*(nx - 1)] = p[i+ny*(nx - 2)];
-            p[i] = p[i+ny];
+            p[j+ny*(nx - 1)] = p[j+ny*(nx - 2)];
+            p[j] = p[j+ny];
         }
         __syncthreads();
         un[j+i*ny] = u[j+i*ny];
@@ -88,7 +88,7 @@ int main(){
             b[i]= 0;
     }
     for (int n = 0; n < nt; n++){
-        cavity<<<(nx*ny-1)/512+1,512>>>(u,v,b,p,un,vn,pn,dx,dy);
+        cavity<<<(nx*ny-1)/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
