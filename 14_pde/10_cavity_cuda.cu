@@ -87,8 +87,10 @@ int main(){
             p[i]= 0;
             b[i]= 0;
     }
+    dim3 block(32, 32);
+    dim3 grid(divup(nx,block.x), divup(ny,block.y));
     for (int n = 0; n < nt; n++){
-        cavity<<<(nx*ny-1)/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
+        cavity<<<block,grid>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
