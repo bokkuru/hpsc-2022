@@ -6,14 +6,15 @@ const int nx = 41;
 const int ny = 41;
 const int nt = 50;
 const int nit = 50;
+const double dt = 0.01;
+const double rho = 1;
+const double nu = 0.02;
 
 int main(){
     
     double dx = 2.0/(nx-1);
     double dy = 2.0/(ny-1);
-    double dt = 0.01;
-    double rho = 1;
-    double nu = 0.02;
+    
     
     double u[ny][nx],v[ny][nx],p[ny][nx],b[ny][nx],pn[ny][nx],un[ny][nx],vn[ny][nx];
     for (int i = 0; i < ny; ++i){
