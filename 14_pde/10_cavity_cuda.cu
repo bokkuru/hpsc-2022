@@ -14,7 +14,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
     unsigned int num = threadIdx.x + blockIdx.x * blockDim.x;
     unsigned int i = num / ny;
     unsigned int j = num % ny;
-    printf("%d,%d\n",i,j);
+    if(j == 0){printf("%d,%d\n",i,j);}
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
