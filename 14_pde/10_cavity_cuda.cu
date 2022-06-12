@@ -88,7 +88,7 @@ int main(){
             b[i]= 0;
     }
     for (int n = 0; n < nt; n++){
-        cavity<<<(nx*ny-1)/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
+        cavity<<<(nx*ny-1)/512+1,512>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
