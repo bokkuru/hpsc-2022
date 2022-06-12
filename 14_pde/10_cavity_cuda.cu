@@ -100,12 +100,12 @@ int main(){
             printf("\n");
         }
     }
-    cudaFree(du);
-	cudaFree(dv);
-	cudaFree(db);
-	cudaFree(dp);
-	cudaFree(dun);
-	cudaFree(dvn);
-	cudaFree(dpn);
+    cudaFree(u);
+    cudaFree(v);
+    cudaFree(p);
+    cudaFree(b);
+    cudaFree(un);
+    cudaFree(vn);
+    cudaFree(pn);
     return 0;
 }
