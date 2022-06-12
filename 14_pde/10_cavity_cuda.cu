@@ -61,8 +61,8 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         u[ny - 1+ny*i] = 1;
         v[ny*i] = 0;
         v[ny - 1+ny*i] = 0;
+        printf("%.2f,%.2f\n",u[j+i*ny]*1000,v[j+i*ny]);
     }
-    printf("%.2f,%.2f\n",u[j+i*ny]*1000,v[j+i*ny]);
     return;
 }
 
@@ -87,10 +87,8 @@ int main(){
             p[i]= 0;
             b[i]= 0;
     }
-    dim3 block(32, 32);
-    dim3 grid(divup(nx,block.x), divup(ny,block.y));
     for (int n = 0; n < nt; n++){
-        cavity<<<block,grid>>>(u,v,b,p,un,vn,pn,dx,dy);
+        cavity<<<(nx*ny-1)/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
