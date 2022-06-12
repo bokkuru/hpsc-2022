@@ -46,7 +46,6 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
                     - dt / (2 * rho * dx) * (p[j+1+i*ny] - p[j-1+i*ny])
                     + nu * dt / (dx * dx) * (vn[j+(i+1)*ny] - 2 * vn[j+i*ny] + vn[j+(i-1)*ny])
                     + nu * dt / (dy * dy) * (vn[j+1+i*ny] - 2 * vn[j+i*ny] + vn[j-1+i*ny]);
-        //printf("%lf,%lf",u[j+i*ny],v[j+i*ny]);
         u[j] = 0;
         u[j+ny*(nx - 1)] = 0;
         v[j] = 0;
@@ -56,6 +55,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         v[ny*i] = 0;
         v[ny - 1+ny*i] = 0;
     }
+    printf("%.2f,%.2f",u[j+i*ny],v[j+i*ny]);
     return;
 }
 
