@@ -14,7 +14,7 @@ __device__ double pow2(double x){
 	return x*x;
 }
 
-__global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn){
+__global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
     int i = blockDim.x*blockIdx.x+threadIdx.x+1;
 	int j = blockDim.y*blockIdx.y+threadIdx.y+1;
 
@@ -81,7 +81,8 @@ int main(){
             b[i]= 0;
     }
     for (int n = 0; n < nt; n++){
-        cavity<<<nx*ny/1024+1,1024>>>(u,v,b,p,un,vn,pn);
+        cudaDeviceSynchronize();
+        cavity<<<nx*ny/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
@@ -99,6 +100,12 @@ int main(){
             printf("\n");
         }
     }
-    printf("\n");
+    cudaFree(du);
+	cudaFree(dv);
+	cudaFree(db);
+	cudaFree(dp);
+	cudaFree(dun);
+	cudaFree(dvn);
+	cudaFree(dpn);
     return 0;
 }
