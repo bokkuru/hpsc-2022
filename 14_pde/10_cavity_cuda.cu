@@ -85,6 +85,8 @@ int main(){
             b[i]= 0;
     }
     for (int n = 0; n < nt; n++){
+        cudaMemcpy(un, u, n * n * sizeof(double), cudaMemcpyHostToDevice);
+		cudaMemcpy(vn, v, n * n * sizeof(double), cudaMemcpyHostToDevice);
         cavity<<<(nx*ny-1)/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
