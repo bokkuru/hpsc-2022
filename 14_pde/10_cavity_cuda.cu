@@ -35,10 +35,6 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
             p[j+ny*(nx - 1)] = p[j+ny*(nx - 2)];
             p[j] = p[j+ny];
         }
-        __syncthreads();
-        un[j+i*ny] = u[j+i*ny];
-        vn[j+i*ny] = v[j+i*ny];
-        __syncthreads();
         u[j+i*ny] = un[j+i*ny] - un[j+i*ny] * dt / dx * (un[j+i*ny] - un[j+(i-1)*ny])
                     - un[j+i*ny] * dt / dy * (un[j+i*ny] - un[j-1+i*ny])
                     - dt / (2 * rho * dx) * (p[j+(i+1)*ny] - p[j+(i-1)*ny])
