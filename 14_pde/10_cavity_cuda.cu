@@ -10,10 +10,6 @@ const double dt = 0.01;
 const double rho = 1;
 const double nu = 0.02;
 
-__device__ double pow2(double x){
-	return x*x;
-}
-
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
     unsigned int num = threadIdx.x + blockIdx.x * blockDim.x;
     unsigned int i = num / ny;
@@ -23,8 +19,8 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
                         ((u[j+(i+1)*ny] - u[j+(i-1)*ny])/(2*dx)+(v[j+1+i*ny]-v[j-1+i*ny])/(2*dy))-
-                        pow2((u[j+(i+1)*ny]-u[j+(i-1)*ny])/(2*dx)) - 2 *((u[j+1+i*ny]-u[j-1+i*ny])/(2*dy)*
-                        (v[j+(i+1)*ny]-v[j+(i-1)*ny])/(2*dx))-pow2((v[j+1+i*ny]-v[j-1+i*ny])/(2*dy)));
+                        pow((u[j+(i+1)*ny]-u[j+(i-1)*ny])/(2*dx),2) - 2 *((u[j+1+i*ny]-u[j-1+i*ny])/(2*dy)*
+                        (v[j+(i+1)*ny]-v[j+(i-1)*ny])/(2*dx))-pow((v[j+1+i*ny]-v[j-1+i*ny])/(2*dy),2));
         for (int it = 0; it < nit; it++){
             __syncthreads();
             pn[j+i*ny] = p[j+i*ny];
