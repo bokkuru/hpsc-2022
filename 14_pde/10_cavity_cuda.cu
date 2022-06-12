@@ -58,7 +58,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         v[ny - 1+ny*i] = 0;
         */
        u[i*ny] = 0;
-		u[i*ny + nx-1] = 1;
+	    u[i*ny + nx-1] = 1;
 		v[i*ny] = 0;
 		v[i*ny + nx-1] = 0;
         u[j] = 0;
@@ -66,6 +66,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         	v[j] = 0;
         	v[i*(ny-1) + j] = 0;
     }
+    print("%.2f",u[j+i*ny])
     return;
 }
 
@@ -96,6 +97,7 @@ int main(){
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
+        /*
         for (int j = 1; j < ny - 1; j++){
             for (int i = 1; i < nx - 1; i++){
                 printf("%.2f ", u[j+i*ny]*1000);
@@ -109,6 +111,7 @@ int main(){
             }
             printf("\n");
         }
+        */
     }
     cudaFree(u);
     cudaFree(v);
