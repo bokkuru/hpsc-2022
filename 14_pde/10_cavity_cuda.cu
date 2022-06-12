@@ -15,8 +15,8 @@ __device__ double pow2(double x){
 }
 
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
-    int i = threadIdx.x + blockIdx.x * blockDim.x;
-    int j = threadIdx.y + blockIdx.y * blockDim.y;
+    unsigned int i = threadIdx.x + blockIdx.x * blockDim.x;
+    unsigned int j = threadIdx.y + blockIdx.y * blockDim.y;
     if(j > 0){printf("%d,%d\n",i,j);}
 
     if((j < ny-1) && (i < nx-1)){	
