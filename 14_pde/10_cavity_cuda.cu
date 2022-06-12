@@ -19,7 +19,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
     
     int i = num % ny;
     int j = num / ny;
-    printf("%d,%d",i,j);
+    printf("%d,%d\n",i,j);
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
@@ -58,7 +58,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         v[ny*i] = 0;
         v[ny - 1+ny*i] = 0;
     }
-    printf("%.2f,%.2f",u[j+i*ny],v[j+i*ny]);
+    printf("%.2f,%.2f\n",u[j+i*ny],v[j+i*ny]);
     return;
 }
 
