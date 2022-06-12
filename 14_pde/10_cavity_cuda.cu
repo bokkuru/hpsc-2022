@@ -15,8 +15,8 @@ __device__ double pow2(double x){
 }
 
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
-    int i = blockDim.x*blockIdx.x+threadIdx.x+1;
-	int j = blockDim.y*blockIdx.y+threadIdx.y+1;
+    int i = blockDim.x*blockIdx.x+threadIdx.x;
+	int j = blockDim.y*blockIdx.y+threadIdx.y;
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
@@ -84,7 +84,7 @@ int main(){
     cudaMallocManaged(&vn, ny * nx * sizeof(double));
     cudaMallocManaged(&pn, ny * nx * sizeof(double));
 
-    for (int i = 0; i < ny*nx+1; ++i){
+    for (int i = 0; i < ny*nx; ++i){
             u[i]= 0;
             v[i]= 0;
             p[i]= 0;
