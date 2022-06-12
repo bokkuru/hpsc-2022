@@ -66,7 +66,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         	v[j] = 0;
         	v[i*(ny-1) + j] = 0;
     }
-    print("%.2f",u[j+i*ny])
+    printf("%.2f",u[j+i*ny]);
     return;
 }
 
