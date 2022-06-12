@@ -47,7 +47,6 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
                     + nu * dt / (dx * dx) * (vn[j+(i+1)*ny] - 2 * vn[j+i*ny] + vn[j+(i-1)*ny])
                     + nu * dt / (dy * dy) * (vn[j+1+i*ny] - 2 * vn[j+i*ny] + vn[j-1+i*ny]);
         //printf("%lf,%lf",u[j+i*ny],v[j+i*ny]);
-        /*
         u[j] = 0;
         u[j+ny*(nx - 1)] = 0;
         v[j] = 0;
@@ -56,17 +55,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         u[ny - 1+ny*i] = 1;
         v[ny*i] = 0;
         v[ny - 1+ny*i] = 0;
-        */
-       u[i*ny] = 0;
-	    u[i*ny + nx-1] = 1;
-		v[i*ny] = 0;
-		v[i*ny + nx-1] = 0;
-        u[j] = 0;
-        	u[i*(ny-1) + j] = 0;
-        	v[j] = 0;
-        	v[i*(ny-1) + j] = 0;
     }
-    printf("%.2f",u[j+i*ny]);
     return;
 }
 
@@ -92,12 +81,10 @@ int main(){
             b[i]= 0;
     }
     for (int n = 0; n < nt; n++){
-        cudaDeviceSynchronize();
         cavity<<<nx*ny/1024+1,1024>>>(u,v,b,p,un,vn,pn,dx,dy);
         cudaDeviceSynchronize();
         printf("%d\n",n);
         printf("u\n");
-        /*
         for (int j = 1; j < ny - 1; j++){
             for (int i = 1; i < nx - 1; i++){
                 printf("%.2f ", u[j+i*ny]*1000);
@@ -111,7 +98,6 @@ int main(){
             }
             printf("\n");
         }
-        */
     }
     cudaFree(u);
     cudaFree(v);
