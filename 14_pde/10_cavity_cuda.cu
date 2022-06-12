@@ -65,7 +65,7 @@ int main(){
     double dy = 2.0/(ny-1);
     
     
-    double u*,v*,p*,b*,pn*,un*,vn*;
+    double *u,*v,*p,*b,*pn,*un,*vn;
     cudaMallocManaged(&u, ny * nx * sizeof(double));
     cudaMallocManaged(&v, ny * nx * sizeof(double));
     cudaMallocManaged(&p, ny * nx * sizeof(double));
