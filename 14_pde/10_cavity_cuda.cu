@@ -17,7 +17,7 @@ __device__ double pow2(double x){
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
     int i = threadIdx.x + blockIdx.x * blockDim.x;
     int j = threadIdx.y + blockIdx.y * blockDim.y;
-    //printf("%d,%d\n",i,j);
+    printf("%d,%d\n",i,j);
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
@@ -61,7 +61,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         u[ny - 1+ny*i] = 1;
         v[ny*i] = 0;
         v[ny - 1+ny*i] = 0;
-        printf("%.2f,%.2f\n",u[j+i*ny]*1000,v[j+i*ny]);
+        //printf("%.2f,%.2f\n",u[j+i*ny]*1000,v[j+i*ny]);
     }
     return;
 }
