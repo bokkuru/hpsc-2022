@@ -17,19 +17,21 @@ __device__ double pow2(double x){
 __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double *vn,double *pn,int dx,int dy){
     int i = threadIdx.x + blockIdx.x * blockDim.x;
     int j = threadIdx.y + blockIdx.y * blockDim.y;
-    printf("%d,%d\n",i,j);
+    //printf("%d,%d\n",i,j);
 
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
                         ((u[j+(i+1)*ny] - u[j+(i-1)*ny])/(2*dx)+(v[j+1+i*ny]-v[j-1+i*ny])/(2*dy))-
                         pow2((u[j+(i+1)*ny]-u[j+(i-1)*ny])/(2*dx)) - 2 *((u[j+1+i*ny]-u[j-1+i*ny])/(2*dy)*
                         (v[j+(i+1)*ny]-v[j+(i-1)*ny])/(2*dx))-pow2((v[j+1+i*ny]-v[j-1+i*ny])/(2*dy)));
+        __syncthreads();
         for (int it = 0; it < nit; it++){
             pn = p;
             p[j+i*ny] = (dy * dy * (pn[j+(i+1)*ny] + pn[j+(i-1)*ny]) +
                         dx * dx * (pn[j+1+i*ny] + pn[j-1+i*ny]) -
                         b[j+i*ny]  * dx * dx * dy * dy)
                         /(2 * (dx * dy + dy * dy));
+            __syncthreads();
             p[ny - 1+i*ny] = 0;
             p[i*ny] = p[1+i*ny];
             p[i+ny*(nx - 1)] = p[i+ny*(nx - 2)];
@@ -37,6 +39,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
         }
         un = u;
         vn = v;
+        __syncthreads();
         u[j+i*ny] = un[j+i*ny] - un[j+i*ny] * dt / dx * (un[j+i*ny] - un[j+(i-1)*ny])
                     - un[j+i*ny] * dt / dy * (un[j+i*ny] - un[j-1+i*ny])
                     - dt / (2 * rho * dx) * (p[j+(i+1)*ny] - p[j+(i-1)*ny])
@@ -47,6 +50,7 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
                     - dt / (2 * rho * dx) * (p[j+1+i*ny] - p[j-1+i*ny])
                     + nu * dt / (dx * dx) * (vn[j+(i+1)*ny] - 2 * vn[j+i*ny] + vn[j+(i-1)*ny])
                     + nu * dt / (dy * dy) * (vn[j+1+i*ny] - 2 * vn[j+i*ny] + vn[j-1+i*ny]);
+        __syncthreads();
         u[j] = 0;
         u[j+ny*(nx - 1)] = 0;
         v[j] = 0;
