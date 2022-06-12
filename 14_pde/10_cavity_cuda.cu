@@ -21,8 +21,8 @@ __global__ void cavity(double *u,double *v,double *b,double *p,double *un,double
     if((j < ny-1) && (i < nx-1)){	
             b[j+i*ny] = rho*(1/dt*
                         ((u[j+(i+1)*ny] - u[j+(i-1)*ny])/(2*dx)+(v[j+1+i*ny]-v[j-1+i*ny])/(2*dy))-
-                        pow((u[j+(i+1)*ny]-u[j+(i-1)*ny])/(2*dx),2) - 2 *((u[j+1+i*ny]-u[j-1+i*ny])/(2*dy)*
-                        (v[j+(i+1)*ny]-v[j+(i-1)*ny])/(2*dx))-pow((v[j+1+i*ny]-v[j-1+i*ny])/(2*dy),2));
+                        pow2((u[j+(i+1)*ny]-u[j+(i-1)*ny])/(2*dx)) - 2 *((u[j+1+i*ny]-u[j-1+i*ny])/(2*dy)*
+                        (v[j+(i+1)*ny]-v[j+(i-1)*ny])/(2*dx))-pow2((v[j+1+i*ny]-v[j-1+i*ny])/(2*dy)));
         for (int it = 0; it < nit; it++){
             pn = p;
             p[j+i*ny] = (dy * dy * (pn[j+(i+1)*ny] + pn[j+(i-1)*ny]) +
