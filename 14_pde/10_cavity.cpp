@@ -4,7 +4,7 @@
 
 const int nx = 41;
 const int ny = 41;
-const int nt = 50;
+const int nt = 5;
 const int nit = 50;
 const double dt = 0.01;
 const double rho = 1;
