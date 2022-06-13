@@ -1,4 +1,3 @@
-#include <cstdioparallel for>
 #include <cmath>
 #include <cstring>
 
